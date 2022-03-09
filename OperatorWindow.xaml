@@ -1,0 +1,311 @@
+﻿<Window x:Class="IrynaSkurkoOptoolProgram.OperatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:IrynaSkurkoOptoolProgram"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="OperatorWindow" Height="800" Width="1260" Icon="resources/icon.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="34"></ColumnDefinition>
+            <ColumnDefinition Width="26"/>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0.4">
+            <!-- Левое меню -->
+            <StackPanel>
+                <Button x:Name="personalPageButton" Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="personalPageButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/user.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="uploadDocButton"  Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="uploadDocButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/upload-file.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="docButton"  Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="docButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/folder.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="checkDoc" Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="checkDoc_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/check-sign.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="statsButton" Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="statsButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/statistics.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="signOutButton" Padding="40" Width="30" Height="30" Margin="10 30 10 0" Opacity="0.3" BorderThickness="0" Click="signOutButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/resources/logout.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="mainGrid" Grid.Column="2" Opacity="1" Margin="0,0,-0.4,0.4">
+            <Grid x:Name="personalPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="1000"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Профиль" FontSize="32" FontStyle="Normal" HorizontalAlignment="Left" FontWeight="Bold" Margin="20 20 0 0"></TextBlock>
+                <TextBlock Margin="20 0 0 0" Grid.Row="1" Grid.Column="0" Text="ID: " FontSize="20"></TextBlock>
+                <TextBlock x:Name="operatorIdField" Grid.Row="1" Grid.Column="1" Text="Здесь ID" FontSize="20"></TextBlock>
+
+                <TextBlock Margin="20 0 0 0" Grid.Row="2" Grid.Column="0" Text="Имя: " FontSize="20"></TextBlock>
+                <TextBlock x:Name="nameField" Grid.Row="2" Grid.Column="1" Text="Здесь имя" FontSize="20"></TextBlock>
+
+                <TextBlock Margin="20 0 0 0" Grid.Row="3" Grid.Column="0" Text="Фамилия: "  FontSize="20"></TextBlock>
+                <TextBlock x:Name="secondNameField" Grid.Row="3" Grid.Column="1" Text="Здесь фамилия"  FontSize="20"></TextBlock>
+
+                <TextBlock Margin="20 0 0 0" Grid.Row="4" Grid.Column="0" Text="Отчество: " FontSize="20"></TextBlock>
+                <TextBlock x:Name="lastNameField" Grid.Row="4" Grid.Column="1" Text="Здесь отчество" FontSize="20"></TextBlock>
+            </Grid>
+            <Grid x:Name="uploadDocPage" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="450"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Text="Загрузка документа" Padding="20" Width="1194" Height="76" FontSize="32" FontStyle="Normal" HorizontalAlignment="Left" FontWeight="Bold"></TextBlock>
+                <TextBox x:Name="clientIdField" FontSize="16" Margin="20 0 20 0" Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="ID клиента" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <ComboBox x:Name="docType" FontSize="16" Margin="20 0 20 0" Grid.Row="1" Grid.Column="1" materialDesign:HintAssist.Hint="Тип документа" Style="{StaticResource MaterialDesignComboBox}">
+                    <TextBlock>Паспорт РБ</TextBlock>
+                </ComboBox>
+                <ComboBox x:Name="verifType" FontSize="16" Margin="20 0 20 0" Grid.Row="1" Grid.Column="2" materialDesign:HintAssist.Hint="Тип верификации" Style="{StaticResource MaterialDesignComboBox}">
+                    <TextBlock>Первичная</TextBlock>
+                    <TextBlock>Повторная</TextBlock>
+                </ComboBox>
+                <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="DarkBlue" Margin="20 0 20 0"></Border>
+                <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="DarkBlue" Margin="20 0 20 0"></Border>
+                <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="DarkBlue" Margin="20 0 20 0"></Border>
+                <Image Grid.Row="2" Grid.Column="0" Margin="20 0 20 0" x:Name="page_30_31" materialDesign:HintAssist.Hint="Страницы 30-31" Source="resources/p31.png"/>
+                <Image Grid.Row="2" Grid.Column="1" Margin="20 0 20 0" x:Name="page_32_33" materialDesign:HintAssist.Hint="Страницы 32-33" Source="resources/p32_33.png"/>
+                <Image Grid.Row="2" Grid.Column="2" Margin="20 0 20 0" x:Name="selfie" materialDesign:HintAssist.Hint="Селфи с паспортом" Source="resources/selfie.png"/>
+
+                <Button x:Name="uploadButton_30_31" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Margin="20 0 20 0" Width="200" Height="50" FontSize="18" Content="Загрузить" Click="uploadButton_30_31_Click"></Button>
+                <Button x:Name="uploadButton_32_33" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="20 0 20 0" Width="200" Height="50" FontSize="18" Content="Загрузить" Click="uploadButton_32_33_Click"></Button>
+                <Button x:Name="uploadButton_selfie" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" Margin="20 0 20 0" Width="200" Height="50" FontSize="18" Content="Загрузить" Click="uploadButton_selfie_Click"></Button>
+
+                <Button x:Name="saveUploadedDocButton" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" Margin="20 0 20 50" Width="200" Height="50" FontSize="18" Content="Сохранить" Click="saveUploadedDocButton_Click" Style="{StaticResource MaterialDesignFlatAccentBgButton}"></Button>
+            </Grid>
+            <Grid x:Name="docPage" Visibility="Hidden">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="15*"/>
+                        <ColumnDefinition Width="52*"/>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="52*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="refreshDocsButton" Grid.Column="1" Grid.Row="0" Width="25" Height="25" Margin="-20 15 0 0" BorderThickness="0" Click="refreshDocsButton_Click" Cursor="Hand" Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/resources/refresh.png"/>
+                        </Button.Background>
+                    </Button>
+                    <TextBlock Grid.Row="0" Text="Документы в очереди" Padding="20" Width="1194" Height="76" FontSize="32" FontStyle="Normal" HorizontalAlignment="Left" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0,12,-0.4,12"></TextBlock>
+                    <DataGrid x:Name="docGrid" FocusVisualStyle="{x:Null}" IsReadOnly="False" CanUserAddRows="False" Grid.Row="1" Width="1190" FontSize="14" Style="{StaticResource MaterialDesignDataGrid}" AutoGenerateColumns="False" Grid.ColumnSpan="6" Margin="0,0,-0.4,0.4" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID Клиента" Width="120" Binding="{Binding client_id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="ID Документа" Width="150" Binding="{Binding document_id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Тип документа" Width="130" Binding="{Binding document_type_id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Тип верификации" Width="160" Binding="{Binding verification_type_id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Статус" Width="110" Binding="{Binding status_id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата и время загрузки" Width="190" Binding="{Binding date_uploaded}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Width="220">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Проверить документ" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Click="Button_Click"></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="130">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="deleteDoc" Content="Удалить" Style="{StaticResource MaterialDesignFlatButton}" Click="deleteDoc_Click" Command="Delete"></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="idDocToFind" Grid.Column="3" Grid.Row="0" Width="200" Height="45" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Поиск по ID документа"></TextBox>
+                    <Button x:Name="findButton" Grid.Column="4" Grid.Row="0" Width="100" Height="45" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderThickness="0" Background="LightGray" Click="findButton_Click" Content="Найти"></Button>
+                    <Button x:Name="archiveButton" Grid.Column="5" Grid.Row="0" Width="150" Height="45" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Opacity="0.5" Click="archiveButton_Click" Content="Архив"></Button>
+                </Grid>
+            </Grid>
+            <Grid x:Name="checkPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"></RowDefinition>
+                    <RowDefinition Height="400"></RowDefinition>
+                    <RowDefinition Height="255"></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Проверка документов" Padding="10" Width="1194" Height="45" FontSize="24" FontStyle="Normal" HorizontalAlignment="Left" FontWeight="Bold"></TextBlock>
+                <Border Grid.Row="1" Grid.Column="0" Width="580" Background="#F4F3F3" Margin="8,0.4,8.8,10.4" Grid.RowSpan="2">
+                    <Grid Margin="0,0,0,9.6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="40" Height="40" Background="#A949F4">
+                            <TextBlock Text="1" FontSize="20" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </Border>
+                        <Button Grid.Row="0" Grid.Column="2" Width="15" Height="15" BorderThickness="0" Opacity="0.4" Margin="-200 5 0 0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/resources/refresh.png"/>
+                            </Button.Background>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Данные документа" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
+                        <TextBox x:Name="docIdTextbox" Grid.Row="1" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="ID документа" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="passNumberBox" Grid.Row="2" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Номер паспорта" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                        <TextBox x:Name="nameBox" Grid.Row="3" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Имя" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="surnameBox" Grid.Row="4" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Фамилия" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="genderBox" Grid.Row="5" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Пол" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="birthDateBox" Grid.Row="6" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Дата рождения" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="expiryDateBox" Grid.Row="7" Grid.ColumnSpan="3" Background="White" Width="500" Height="40" FontSize="14" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Срок действия" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                        <Label x:Name="passResultBox" Grid.Row="8" Grid.ColumnSpan="3" Background="LightPink" Width="500" Height="40" FontSize="16" Content="Нет 21 года" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" ></Label>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" Width="580" Height="400" Background="#F4F3F3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"></RowDefinition>
+                            <RowDefinition Height="290"></RowDefinition>
+                            <RowDefinition Height="70"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="40" Height="40" Background="#A949F4">
+                            <TextBlock Text="2" FontSize="20" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </Border>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Фотографии" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
+                        <Button Grid.Row="0" Grid.Column="2" Width="15" Height="15" BorderThickness="0" Opacity="0.4" Margin="-250 5 0 0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/resources/refresh.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Border Grid.Column="0" Grid.Row="1" Width="185" BorderBrush="White" BorderThickness="1" Margin="5 0 0 0">
+                            <Image x:Name="page_30_31_check" materialDesign:HintAssist.Hint="Страницы 30-31" Source="/resources/user.png" MouseLeftButtonDown="picture_MouseLeftButtonDown"/>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="1" Width="185" BorderBrush="White" BorderThickness="1" Margin="5 0 0 0">
+                            <Image x:Name="page_32_33_check" materialDesign:HintAssist.Hint="Страницы 30-31" Source="/resources/refresh.png" MouseLeftButtonDown="picture_MouseLeftButtonDown"/>
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="1" Width="185" BorderBrush="White" BorderThickness="1" Margin="5 0 0 0">
+                            <Image x:Name="selfie_check" materialDesign:HintAssist.Hint="Страницы 30-31" Source="/resources/folder.png" MouseLeftButtonDown="picture_MouseLeftButtonDown"/>
+                        </Border>
+                        <Label x:Name="faceMatchLabel" Grid.Row="5" Grid.ColumnSpan="3" Background="#BFF7AC" Width="500" Height="40" FontSize="16" Content="Лица совпадают" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" ></Label>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="1" Width="580" Background="#F4F3F3" Margin="8.2,27.6,8.6,10.4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="300" ></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="40" Height="40" Background="#A949F4">
+                            <TextBlock Text="3" FontSize="20" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </Border>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Подтверждение статуса документа" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
+                        <Button Grid.Row="0" Grid.Column="2" Width="15" Height="15" BorderThickness="0" Opacity="0.4" Margin="-130 5 0 0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/resources/refresh.png"/>
+                            </Button.Background>
+                        </Button>
+                        <ComboBox Grid.Row="2" Grid.ColumnSpan="3" Background="#ECECEC" Width="500" Height="50" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="15" FontWeight="Bold" >
+                            <ComboBoxItem Style="{StaticResource MaterialDesignComboBoxItemStyle}"  IsSelected="False">Верификация пройдена</ComboBoxItem>
+                            <ComboBoxItem Style="{StaticResource MaterialDesignComboBoxItemStyle}"  IsSelected="True">Верификация не пройдена</ComboBoxItem>
+                            <ComboBoxItem Style="{StaticResource MaterialDesignComboBoxItemStyle}"  IsSelected="False">Запросить повторно</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+                <Button Grid.Row="3" Grid.Column="1" Width="200" Height="50" Content="Сохранить документ" Margin="100 0 0 0" Style="{StaticResource MaterialDesignFlatAccentBgButton}"></Button>
+                <Button Grid.Row="3" Grid.Column="1" Width="100" Height="50" Content="Отмена" Margin="450 0 0 0" Style="{StaticResource MaterialDesignFlatButton}"></Button>
+            </Grid>
+            <Grid x:Name="statsPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Статистика" Padding="20" Width="1194" Height="76" FontSize="32" FontStyle="Normal" HorizontalAlignment="Left" FontWeight="Bold"></TextBlock>
+                <Button Grid.Column="1" Grid.Row="0" Width="150" Height="45" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Content="Скачать отчет" BorderThickness="0" FontSize="18" Margin="0 20 0 0"></Button>
+                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.Resources>
+                        <Style TargetType="lvc:LineSeries">
+                            <Setter Property="StrokeThickness" Value="3"></Setter>
+                            <Setter Property="Stroke" Value="White"></Setter>
+                            <Setter Property="Fill" Value="#4EFFFFFF"></Setter>
+                            <Setter Property="PointGeometrySize" Value="0"></Setter>
+                            <Setter Property="LineSmoothness" Value="0"></Setter>
+                        </Style>
+                        <Style TargetType="lvc:Axis">
+                            <Setter Property="ShowLabels" Value="False"></Setter>
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <lvc:CartesianChart Width="1000" Height="500" Name="TimePowerChart" Grid.Row="2" Margin="10, 0, 10, 20"  Hoverable="False" DataTooltip="{x:Null}">
+                        <lvc:CartesianChart.Series>
+                            <lvc:ColumnSeries Values="5,9,8,6,1,5,7,3,6,3"/>
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
